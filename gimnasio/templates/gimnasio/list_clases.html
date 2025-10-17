@@ -1,0 +1,26 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Clases · MVD CrossFit{% endblock %}
+{% block content %}
+<h2 class="mb-3">Clases</h2>
+
+<table class="table table-dark table-striped align-middle">
+  <thead>
+    <tr>
+      <th>Día</th><th>Hora</th><th>Nivel</th><th>Cupos</th><th>Coach</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for c in clases %}
+    <tr>
+      <td>{{ c.get_dia_display }}</td>
+      <td>{{ c.hora }}</td>
+      <td>{{ c.get_nivel_display }}</td>
+      <td>{{ c.cupos }}</td>
+      <td>{{ c.coach.apellido }}, {{ c.coach.nombre }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5" class="text-secondary">No hay clases cargadas.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

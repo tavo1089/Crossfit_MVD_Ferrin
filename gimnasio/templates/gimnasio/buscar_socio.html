@@ -1,0 +1,23 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Buscar socios · MVD CrossFit{% endblock %}
+{% block content %}
+<h2 class="mb-3">Buscar socios</h2>
+
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-6">{{ form.q }}</div>
+  <div class="col-auto"><button class="btn btn-primary" type="submit">Buscar</button></div>
+</form>
+
+{% if resultados %}
+  <p class="mb-2">Resultados: {{ resultados|length }}</p>
+  <ul class="list-group">
+    {% for s in resultados %}
+      <li class="list-group-item bg-dark text-light">
+        {{ s.apellido }}, {{ s.nombre }} — {{ s.email }}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif form.is_bound %}
+  <p class="text-secondary">No se encontraron socios.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}OK · MVD CrossFit{% endblock %}
+{% block content %}
+<div class="alert alert-success">
+  {{ titulo }} correctamente.
+</div>
+<a class="btn btn-primary me-2" href="{% url 'home' %}">Volver al inicio</a>
+<a class="btn btn-outline-light" href="javascript:history.back()">Cargar otro</a>
+{% endblock %}
