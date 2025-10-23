@@ -1,22 +1,27 @@
-{% extends "gimnasio/base.html" %}
+{% extends 'gimnasio/base.html' %}
 {% block title %}{{ titulo }} · MVD CrossFit{% endblock %}
 {% block content %}
-<h2 class="mb-3">{{ titulo }}</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card bg-dark text-light shadow-lg p-4" style="width: 500px; border: 1px solid #333; border-radius: 15px;">
+    <h2 class="text-center mb-4">{{ titulo }}</h2>
 
-<form method="post" class="row g-3">
-  {% csrf_token %}
-  {% for field in form %}
-    <div class="col-12">
-      <label class="form-label">{{ field.label }}</label>
-      {{ field }}
-      {% if field.errors %}
-        <div class="text-danger small">{{ field.errors|striptags }}</div>
-      {% endif %}
-    </div>
-  {% endfor %}
-  <div class="col-12">
-    <button class="btn btn-primary">Guardar</button>
-    <a class="btn btn-outline-light" href="{% url 'home' %}">Cancelar</a>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary me-2">Guardar</button>
+        <a href="{% url 'home' %}" class="btn btn-outline-light">Cancelar</a>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 {% endblock %}

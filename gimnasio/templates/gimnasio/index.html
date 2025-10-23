@@ -1,16 +1,20 @@
 {% extends "gimnasio/base.html" %}
 {% block title %}Inicio · MVD CrossFit{% endblock %}
 {% block content %}
-
 <section class="py-5 text-center">
   <h1 class="display-5 fw-bold">Entrená distinto</h1>
   <p class="lead text-secondary">
     Box de CrossFit en Montevideo. Entrenadores de nivel, cupos reducidos.
   </p>
   <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-3">
-    <a class="btn btn-primary btn-lg" href="#">Ver clases</a>
-    <a class="btn btn-outline-light btn-lg" href="#">Asociate</a>
+<a class="btn btn-primary btn-lg" href="{% url 'listar_clases' %}">Ver clases</a>
+<a class="btn btn-outline-light btn-lg" href="{% url 'crear_socio' %}">Asociate</a>
+
   </div>
 </section>
+
+
+</section>
+
 
 {% endblock %}
