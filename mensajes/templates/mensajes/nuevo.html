@@ -1,0 +1,22 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Nuevo mensaje{% endblock %}
+{% block content %}
+<h2 class="mb-4">Enviar nuevo mensaje</h2>
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 500px;">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_destinatario" class="form-label">Destinatario</label>
+        {{ form.destinatario }}
+      </div>
+      <div class="mb-3">
+        <label for="id_texto" class="form-label">Mensaje</label>
+        {{ form.texto }}
+      </div>
+      <button type="submit" class="btn btn-success">Enviar</button>
+      <a href="{% url 'mensajes_conversaciones' %}" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Editar perfil{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 400px; margin-top: 60px; margin-bottom: 60px;">
+  <div class="card-body p-4">
+    <h3 class="card-title mb-3" style="font-size:1.3rem;">Editar perfil</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-2">
+        <label for="id_nombre" class="form-label">Nombre</label>
+        {{ form.nombre }}
+      </div>
+      <div class="mb-2">
+        <label for="id_apellido" class="form-label">Apellido</label>
+        {{ form.apellido }}
+      </div>
+      <div class="mb-2">
+        <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+        {{ form.fecha_nacimiento }}
+      </div>
+      <div class="mb-2">
+        <label for="id_edad" class="form-label">Edad</label>
+        {{ form.edad }}
+      </div>
+      <div class="mb-2">
+        <label for="id_direccion" class="form-label">Dirección</label>
+        {{ form.direccion }}
+      </div>
+      <div class="mb-2">
+        <label for="id_pais" class="form-label">País</label>
+        {{ form.pais }}
+      </div>
+      <div class="mb-2">
+        <label for="id_bio" class="form-label">Biografía</label>
+        {{ form.bio }}
+      </div>
+      <div class="mb-2">
+        <label for="id_avatar" class="form-label">Avatar</label>
+        {{ form.avatar }}
+      </div>
+      <div class="d-flex flex-column gap-2 mt-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'mi_perfil' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

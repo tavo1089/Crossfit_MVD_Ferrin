@@ -1,0 +1,30 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}{{ view.object.pk|yesno:"Editar página,Nueva página" }} · Blog{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 600px;">
+  <div class="card-body">
+    <h3 class="card-title mb-3">{{ view.object.pk|yesno:"Editar página,Nueva página" }}</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_titulo" class="form-label">Título</label>
+        {{ form.titulo }}
+      </div>
+      <div class="mb-3">
+        <label for="id_subtitulo" class="form-label">Subtítulo</label>
+        {{ form.subtitulo }}
+      </div>
+      <div class="mb-3">
+        <label for="id_contenido" class="form-label">Contenido</label>
+        {{ form.contenido }}
+      </div>
+      <div class="mb-3">
+        <label for="id_imagen" class="form-label">Imagen</label>
+        {{ form.imagen }}
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="{% url 'pages_list' %}" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

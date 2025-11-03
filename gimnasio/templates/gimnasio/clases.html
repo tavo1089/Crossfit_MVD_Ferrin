@@ -1,0 +1,41 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Clases · MVD CrossFit{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">Clases</h2>
+<div class="d-flex justify-content-center mb-4 gap-3">
+  <a href="{% url 'listar_clases' %}" class="btn btn-warning fw-semibold">
+    <i class="bi bi-calendar-check me-1"></i> Reserva tu clase
+  </a>
+  {% if user.is_authenticated %}
+    <a href="{% url 'crear_clase' %}" class="btn btn-info fw-semibold">
+      <i class="bi bi-plus-circle me-1"></i> Nueva clase
+    </a>
+  {% endif %}
+</div>
+<div class="row justify-content-center mb-4">
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-warning h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-lightning fs-2 text-warning mb-2"></i>
+        <h5 class="card-title">Crossfit</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-info h-100">
+      <div class="card-body text-center">
+  <i class="bi bi-person-arms-up fs-2 text-info mb-2"></i>
+        <h5 class="card-title">Musculación</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-success h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-flower1 fs-2 text-success mb-2"></i>
+        <h5 class="card-title">Yoga</h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

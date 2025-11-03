@@ -1,0 +1,32 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Mi perfil{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 500px;">
+  <div class="card-body text-center">
+    {% if perfil.avatar %}
+      <img src="{{ perfil.avatar.url }}" alt="Avatar" class="rounded-circle mb-3" width="120" height="120">
+    {% else %}
+      <i class="bi bi-person-circle" style="font-size: 120px;"></i>
+    {% endif %}
+    <h3 class="card-title mb-2">{{ request.user.username }}</h3>
+    <h6 class="card-subtitle mb-2 text-secondary">{{ perfil.nombre }} {{ perfil.apellido }}</h6>
+    {% if perfil.fecha_nacimiento %}
+      <div class="small mb-1"><i class="bi bi-calendar"></i> Nacimiento: {{ perfil.fecha_nacimiento }}</div>
+    {% endif %}
+    {% if perfil.edad %}
+      <div class="small mb-1"><i class="bi bi-hourglass"></i> Edad: {{ perfil.edad }}</div>
+    {% endif %}
+    {% if perfil.direccion %}
+      <div class="small mb-1"><i class="bi bi-geo-alt"></i> Dirección: {{ perfil.direccion }}</div>
+    {% endif %}
+    {% if perfil.pais %}
+      <div class="small mb-1"><i class="bi bi-flag"></i> País: {{ perfil.pais }}</div>
+    {% endif %}
+    <p class="card-text mt-2">{{ perfil.bio|default:"Sin biografía." }}</p>
+    <div class="d-flex flex-column flex-md-row justify-content-center gap-2 mt-2">
+      <a href="{% url 'editar_perfil' %}" class="btn btn-outline-info"><i class="bi bi-pencil-square"></i> Editar perfil</a>
+      <a href="{% url 'cambiar_password' %}" class="btn btn-outline-warning"><i class="bi bi-key"></i> Cambiar contraseña</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

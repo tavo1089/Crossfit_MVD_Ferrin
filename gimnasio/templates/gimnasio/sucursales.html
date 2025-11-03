@@ -1,0 +1,36 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Sucursales · MVD CrossFit{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-5"><i class="bi bi-geo-alt me-2"></i>Sucursales</h2>
+  <div class="row justify-content-center g-4">
+    <div class="col-md-4">
+      <div class="card bg-dark text-light h-100 shadow-lg border-warning">
+        <div class="card-body text-center">
+          <i class="bi bi-geo-fill fs-1 text-warning mb-3"></i>
+          <h4 class="card-title mb-2">Punta Carretas</h4>
+          <p class="card-text">Av. José Ellauri 350, Montevideo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-dark text-light h-100 shadow-lg border-info">
+        <div class="card-body text-center">
+          <i class="bi bi-geo-fill fs-1 text-info mb-3"></i>
+          <h4 class="card-title mb-2">Ciudad Vieja</h4>
+          <p class="card-text">Calle Sarandí 700, Montevideo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-dark text-light h-100 shadow-lg border-success">
+        <div class="card-body text-center">
+          <i class="bi bi-geo-fill fs-1 text-success mb-3"></i>
+          <h4 class="card-title mb-2">Pocitos</h4>
+          <p class="card-text">Rbla. República del Perú 1500, Montevideo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Conversación con {{ otro.username }}{% endblock %}
+{% block content %}
+<h2 class="mb-4">Conversación con {{ otro.username }}</h2>
+<div class="card bg-dark text-light shadow mb-4">
+  <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+    {% for mensaje in mensajes %}
+      <div class="mb-3">
+        <div class="d-flex {% if mensaje.remitente == request.user %}justify-content-end{% else %}justify-content-start{% endif %}">
+          <div class="p-2 rounded {% if mensaje.remitente == request.user %}bg-primary text-light{% else %}bg-secondary text-dark{% endif %}" style="max-width: 70%;">
+            <span class="small">{{ mensaje.remitente.username }}</span><br>
+            {{ mensaje.texto|linebreaksbr }}
+            <div class="text-end small text-light">{{ mensaje.fecha|date:"d/m/Y H:i" }}</div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="alert alert-secondary text-center">No hay mensajes aún.</div>
+    {% endfor %}
+  </div>
+</div>
+<form method="post" class="mb-4">
+  {% csrf_token %}
+  {{ form.destinatario }}
+  <div class="mb-3">
+    {{ form.texto }}
+  </div>
+  <button type="submit" class="btn btn-success"><i class="bi bi-send"></i> Enviar</button>
+</form>
+<a href="{% url 'mensajes_conversaciones' %}" class="btn btn-secondary">Volver a conversaciones</a>
+{% endblock %}

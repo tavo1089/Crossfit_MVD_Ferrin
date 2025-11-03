@@ -1,0 +1,23 @@
+
+{% extends "gimnasio/base.html" %}
+{% block title %}Acerca de mí · MVD CrossFit{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 500px;">
+  <div class="card-body text-center">
+    <!-- Cambia la URL de la imagen por una tuya si lo deseas -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Uruguay.svg/240px-Flag_of_Uruguay.svg.png" alt="Bandera de Uruguay" class="rounded-circle mb-3" width="120" height="120">
+    <h3 class="card-title mb-2">Gustavo Ferrín <span class="text-info">(Tavo)</span></h3>
+    <h6 class="card-subtitle mb-3 text-secondary">36 años · Montevideo, Uruguay</h6>
+    <p class="card-text">¡Hola! Soy entrenador de CrossFit y ahora busco nuevos desafíos aprendiendo programación. Me apasiona el deporte, la tecnología y ayudar a otros a superarse. Este proyecto es parte de mi primer curso de Python y Django.</p>
+    <ul class="list-unstyled mb-3">
+  <li><i class="bi bi-envelope"></i> tavofm10@gmail.com</li>
+      <li><i class="bi bi-github"></i> <a href="https://github.com/tavo1089" class="text-info" target="_blank">tavo1089</a></li>
+      <li><i class="bi bi-instagram"></i> <a href="https://instagram.com/gustavoferrin" class="text-info" target="_blank">@gustavoferrin</a></li>
+    </ul>
+    <span class="badge bg-primary">2025</span>
+    <div class="mt-3">
+      <a href="{% url 'home' %}" class="text-info text-decoration-underline small"><i class="bi bi-arrow-left"></i> Volver al inicio</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

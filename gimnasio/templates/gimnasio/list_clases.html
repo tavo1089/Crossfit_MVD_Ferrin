@@ -1,26 +1,69 @@
 {% extends "gimnasio/base.html" %}
 {% block title %}Clases · MVD CrossFit{% endblock %}
 {% block content %}
-<h2 class="mb-3">Clases</h2>
+<h2 class="mb-3">Reserva tu clase</h2>
 
-<table class="table table-dark table-striped align-middle">
-  <thead>
-    <tr>
-      <th>Día</th><th>Hora</th><th>Nivel</th><th>Cupos</th><th>Coach</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for c in clases %}
-    <tr>
-      <td>{{ c.get_dia_display }}</td>
-      <td>{{ c.hora }}</td>
-      <td>{{ c.get_nivel_display }}</td>
-      <td>{{ c.cupos }}</td>
-      <td>{{ c.coach.apellido }}, {{ c.coach.nombre }}</td>
-    </tr>
-  {% empty %}
-    <tr><td colspan="5" class="text-secondary">No hay clases cargadas.</td></tr>
-  {% endfor %}
-  </tbody>
-</table>
+<div class="row justify-content-center mb-4">
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-warning h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-lightning fs-2 text-warning mb-2"></i>
+        <h5 class="card-title">Crossfit</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-info h-100">
+      <div class="card-body text-center">
+  <i class="bi bi-person-arms-up fs-2 text-info mb-2"></i>
+        <h5 class="card-title">Musculación</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-2">
+    <div class="card bg-dark text-light shadow border-success h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-flower1 fs-2 text-success mb-2"></i>
+        <h5 class="card-title">Yoga</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if not user.is_authenticated %}
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 40vh;">
+    <div class="card bg-dark text-light shadow-lg p-4" style="max-width: 370px; width: 100%;">
+      <div class="card-body text-center">
+        <i class="bi bi-lock fs-1 mb-3 text-warning"></i>
+        <h4 class="mb-3">Acceso restringido</h4>
+        <p class="mb-4">Para ver las clases debes registrarte o ingresar con tu cuenta.</p>
+        <div class="d-flex flex-column gap-2">
+          <a href="{% url 'signup' %}" class="btn btn-warning w-100"><i class="bi bi-person-plus me-1"></i> Registrarme</a>
+          <a href="{% url 'login' %}" class="btn btn-outline-light w-100"><i class="bi bi-box-arrow-in-right me-1"></i> Ingresar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <table class="table table-dark table-striped align-middle">
+    <thead>
+      <tr>
+        <th>Día</th><th>Hora</th><th>Nivel</th><th>Cupos</th><th>Coach</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for c in clases %}
+      <tr>
+        <td>{{ c.get_dia_display }}</td>
+        <td>{{ c.hora }}</td>
+        <td>{{ c.get_nivel_display }}</td>
+        <td>{{ c.cupos }}</td>
+        <td>{{ c.coach.apellido }}, {{ c.coach.nombre }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5" class="text-secondary">No hay clases cargadas.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 {% endblock %}

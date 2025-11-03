@@ -1,0 +1,21 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Mis conversaciones{% endblock %}
+{% block content %}
+<h2 class="mb-4">Conversaciones</h2>
+<a href="{% url 'mensajes_nuevo' %}" class="btn btn-success mb-3"><i class="bi bi-chat-dots"></i> Nuevo mensaje</a>
+{% if conversaciones %}
+  <div class="list-group">
+    {% for c in conversaciones %}
+      <a href="{% url 'mensajes_detalle' c.usuario.id %}" class="list-group-item list-group-item-action bg-dark text-light d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-person-circle me-2"></i>{{ c.usuario.username }}</span>
+        {% if c.sin_leer %}
+          <span class="badge bg-danger">{{ c.sin_leer }} sin leer</span>
+        {% endif %}
+        <span class="small text-secondary">{{ c.ultimo.fecha|date:"d/m/Y H:i" }}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary text-center">No tienes conversaciones aún.</div>
+{% endif %}
+{% endblock %}

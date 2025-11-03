@@ -6,10 +6,38 @@
   <p class="lead text-secondary">
     Box de CrossFit en Montevideo. Entrenadores de nivel, cupos reducidos.
   </p>
-  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-3">
-<a class="btn btn-primary btn-lg" href="{% url 'listar_clases' %}">Ver clases</a>
-<a class="btn btn-outline-light btn-lg" href="{% url 'crear_socio' %}">Asociate</a>
-
+  <div class="d-flex flex-wrap gap-3 justify-content-center mt-4">
+    <a href="{% url 'clases' %}" class="btn btn-warning btn-lg shadow rounded-pill">
+      <i class="bi bi-calendar-week me-2"></i> Ver Clases
+    </a>
+    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg shadow rounded-pill">
+      <i class="bi bi-person-plus me-2"></i> Registrarme
+    </a>
+    <a href="{% url 'sucursales' %}" class="btn btn-dark btn-lg shadow rounded-pill">
+      <i class="bi bi-geo-alt me-2"></i> Sucursales
+    </a>
+    <div class="dropdown">
+      <button class="btn btn-success btn-lg shadow rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-envelope me-2"></i> Contactar
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark text-center">
+        <li>
+          <a class="dropdown-item d-flex align-items-center gap-2" href="mailto:contacto@mvd.com">
+            <i class="bi bi-envelope"></i> contacto@mvd.com
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center gap-2" href="https://instagram.com/crossfitmvd" target="_blank">
+            <i class="bi bi-instagram"></i> @crossfitmvd
+          </a>
+        </li>
+        <li>
+          <span class="dropdown-item d-flex align-items-center gap-2">
+            <i class="bi bi-telephone"></i> +598 099 123 456
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>
 

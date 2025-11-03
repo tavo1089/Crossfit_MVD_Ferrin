@@ -1,0 +1,24 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}{{ pagina.titulo }} · Blog{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 700px;">
+  {% if pagina.imagen %}
+    <img src="{{ pagina.imagen.url }}" class="card-img-top" alt="Imagen de {{ pagina.titulo }}">
+  {% endif %}
+  <div class="card-body">
+    <h2 class="card-title">{{ pagina.titulo }}</h2>
+    <h5 class="card-subtitle mb-3 text-secondary">{{ pagina.subtitulo }}</h5>
+    <div class="mb-3">{{ pagina.contenido|safe }}</div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="small text-secondary"><i class="bi bi-calendar"></i> {{ pagina.fecha_publicacion|date:"d/m/Y H:i" }}</span>
+      <span class="small"><i class="bi bi-person-circle"></i> {{ pagina.autor }}</span>
+    </div>
+  </div>
+  {% if user.is_authenticated and pagina.autor == user %}
+    <div class="card-footer d-flex justify-content-end gap-2">
+      <a href="{% url 'pages_update' pagina.pk %}" class="btn btn-outline-warning btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+      <a href="{% url 'pages_delete' pagina.pk %}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Borrar</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

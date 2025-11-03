@@ -1,0 +1,15 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Borrar página · Blog{% endblock %}
+{% block content %}
+<div class="card bg-dark text-light shadow-lg mx-auto" style="max-width: 500px;">
+  <div class="card-body text-center">
+    <h3 class="mb-3">¿Seguro que deseas borrar esta página?</h3>
+    <p class="mb-4"><strong>{{ object.titulo }}</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Sí, borrar</button>
+      <a href="{% url 'pages_detail' object.pk %}" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
