@@ -6,27 +6,210 @@
     <h3 class="card-title mb-3">Registro de usuario</h3>
     <form method="post">
       {% csrf_token %}
-      {{ form.non_field_errors }}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger mb-3">
+          <i class="bi bi-exclamation-triangle"></i>
+          <strong>Error:</strong>
+          {% for error in form.non_field_errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
       <div class="mb-3">
         <label for="id_username" class="form-label">Usuario</label>
         {{ form.username }}
+        {% if form.username.errors %}
+          <div class="alert alert-danger mt-2 p-2 small">
+            <i class="bi bi-x-circle"></i>
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="mb-3">
         <label for="id_email" class="form-label">Email</label>
         {{ form.email }}
+        {% if form.email.errors %}
+          <div class="alert alert-danger mt-2 p-2 small">
+            <i class="bi bi-x-circle"></i>
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="mb-3">
         <label for="id_password1" class="form-label">Contraseña</label>
-        {{ form.password1 }}
-        {# Errores estándar de Django para el campo password1 #}
+        <div class="input-group">
+          {{ form.password1 }}
+          <button class="btn btn-light border-start-0" type="button" id="togglePassword1" style="border-color: #ced4da;">
+            <i class="bi bi-eye text-muted" id="eyeIcon1"></i>
+          </button>
+        </div>
+        <div class="form-text text-muted small">
+          Al menos 8 caracteres.
+        </div>
+        <!-- Tooltip personalizado para errores de contraseña -->
+        <div id="passwordTooltip" class="alert alert-warning mt-2 p-2 small" style="display: none;">
+          <i class="bi bi-exclamation-triangle"></i>
+          <strong>La contraseña debe contener:</strong>
+          <ul class="mb-0 mt-1" id="passwordRequirements">
+            <li id="req-length">Mínimo 8 caracteres</li>
+            <li id="req-letters">Letras (a-z, A-Z)</li>
+            <li id="req-numbers">Números (0-9)</li>
+            <li id="req-common">No ser muy común (ej: 12345678, password)</li>
+          </ul>
+        </div>
+        {% if form.password1.errors %}
+          <div class="alert alert-danger mt-2 p-2 small">
+            <i class="bi bi-exclamation-circle"></i>
+            Por favor, introduce una contraseña que cumpla con los siguientes requisitos:
+            <ul class="mb-0 mt-1">
+              {% for error in form.password1.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
       </div>
       <div class="mb-3">
         <label for="id_password2" class="form-label">Confirmar contraseña</label>
-        {{ form.password2 }}
+        <div class="input-group">
+          {{ form.password2 }}
+          <button class="btn btn-light border-start-0" type="button" id="togglePassword2" style="border-color: #ced4da;">
+            <i class="bi bi-eye text-muted" id="eyeIcon2"></i>
+          </button>
+        </div>
+        {% if form.password2.errors %}
+          <div class="alert alert-danger mt-2 p-2 small">
+            <i class="bi bi-x-circle"></i>
+            <strong>Error:</strong>
+            {% for error in form.password2.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
       <button type="submit" class="btn btn-success">Registrarse</button>
       <a href="{% url 'login' %}" class="btn btn-link text-info">¿Ya tienes cuenta? Inicia sesión</a>
     </form>
   </div>
 </div>
+
+<script>
+// Función para mostrar/ocultar contraseña
+function togglePasswordVisibility(passwordFieldId, eyeIconId) {
+  const passwordField = document.getElementById(passwordFieldId);
+  const eyeIcon = document.getElementById(eyeIconId);
+  
+  if (passwordField.type === 'password') {
+    passwordField.type = 'text';
+    eyeIcon.classList.remove('bi-eye');
+    eyeIcon.classList.add('bi-eye-slash');
+  } else {
+    passwordField.type = 'password';
+    eyeIcon.classList.remove('bi-eye-slash');
+    eyeIcon.classList.add('bi-eye');
+  }
+}
+
+// Validación en tiempo real de contraseña
+function validatePassword(password) {
+  const tooltip = document.getElementById('passwordTooltip');
+  const lengthReq = document.getElementById('req-length');
+  const lettersReq = document.getElementById('req-letters');
+  const numbersReq = document.getElementById('req-numbers');
+  const commonReq = document.getElementById('req-common');
+  
+  let hasErrors = false;
+  
+  // Verificar longitud
+  if (password.length >= 8) {
+    lengthReq.style.color = 'green';
+    lengthReq.innerHTML = '✓ Mínimo 8 caracteres';
+  } else {
+    lengthReq.style.color = 'red';
+    lengthReq.innerHTML = '✗ Mínimo 8 caracteres';
+    hasErrors = true;
+  }
+  
+  // Verificar letras
+  if (/[a-zA-Z]/.test(password)) {
+    lettersReq.style.color = 'green';
+    lettersReq.innerHTML = '✓ Letras (a-z, A-Z)';
+  } else {
+    lettersReq.style.color = 'red';
+    lettersReq.innerHTML = '✗ Letras (a-z, A-Z)';
+    hasErrors = true;
+  }
+  
+  // Verificar números
+  if (/[0-9]/.test(password)) {
+    numbersReq.style.color = 'green';
+    numbersReq.innerHTML = '✓ Números (0-9)';
+  } else {
+    numbersReq.style.color = 'red';
+    numbersReq.innerHTML = '✗ Números (0-9)';
+    hasErrors = true;
+  }
+  
+  // Verificar contraseñas comunes
+  const commonPasswords = ['12345678', 'password', 'password123', '123456789', 'qwerty', 'abc123'];
+  if (!commonPasswords.includes(password.toLowerCase()) && password.length > 0) {
+    commonReq.style.color = 'green';
+    commonReq.innerHTML = '✓ No ser muy común';
+  } else if (password.length > 0) {
+    commonReq.style.color = 'red';
+    commonReq.innerHTML = '✗ No ser muy común';
+    hasErrors = true;
+  } else {
+    commonReq.style.color = 'red';
+    commonReq.innerHTML = '✗ No ser muy común';
+    hasErrors = true;
+  }
+  
+  // Mostrar/ocultar tooltip
+  if (password.length > 0 && hasErrors) {
+    tooltip.style.display = 'block';
+  } else if (password.length > 0 && !hasErrors) {
+    tooltip.style.display = 'block';
+    tooltip.className = 'alert alert-success mt-2 p-2 small';
+  } else {
+    tooltip.style.display = 'none';
+    tooltip.className = 'alert alert-warning mt-2 p-2 small';
+  }
+}
+
+// Event listeners
+document.getElementById('togglePassword1').addEventListener('click', function() {
+  togglePasswordVisibility('id_password1', 'eyeIcon1');
+});
+
+document.getElementById('togglePassword2').addEventListener('click', function() {
+  togglePasswordVisibility('id_password2', 'eyeIcon2');
+});
+
+// Validación en tiempo real
+document.getElementById('id_password1').addEventListener('input', function() {
+  validatePassword(this.value);
+});
+
+// Mostrar tooltip al hacer focus
+document.getElementById('id_password1').addEventListener('focus', function() {
+  if (this.value.length === 0) {
+    document.getElementById('passwordTooltip').style.display = 'block';
+  }
+});
+
+// Ocultar tooltip al perder focus si está completa
+document.getElementById('id_password1').addEventListener('blur', function() {
+  const tooltip = document.getElementById('passwordTooltip');
+  if (tooltip.className.includes('alert-success')) {
+    setTimeout(() => {
+      tooltip.style.display = 'none';
+    }, 2000);
+  }
+});
+</script>
 {% endblock %}

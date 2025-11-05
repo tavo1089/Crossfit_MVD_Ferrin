@@ -9,18 +9,22 @@ class SignupForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({
             'class': 'form-control',
+            'placeholder': 'Elige tu nombre de usuario',
             'title': 'Nombre de usuario: solo letras, números y guiones bajos.'
         })
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
+            'placeholder': 'tu@email.com',
             'title': 'Correo electrónico válido.'
         })
         self.fields['password1'].widget.attrs.update({
             'class': 'form-control',
+            'placeholder': 'Crea una contraseña segura (min. 8 caracteres)',
             'title': 'Contraseña segura: mínimo 8 caracteres, letras y números.'
         })
         self.fields['password2'].widget.attrs.update({
             'class': 'form-control',
+            'placeholder': 'Repite la contraseña anterior',
             'title': 'Repite la contraseña exactamente igual.'
         })
 
