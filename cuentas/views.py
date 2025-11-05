@@ -16,7 +16,6 @@ def login_view(request):
 		user = authenticate(request, username=username, password=password)
 		if user:
 			login(request, user)
-			messages.success(request, 'Inicio de sesión exitoso.')
 			return redirect('home')
 		else:
 			messages.error(request, 'Usuario o contraseña incorrectos.')
@@ -24,7 +23,6 @@ def login_view(request):
 
 def logout_view(request):
 	logout(request)
-	messages.success(request, 'Sesión cerrada correctamente.')
 	return redirect('home')
 
 def signup_view(request):
@@ -35,7 +33,6 @@ def signup_view(request):
 		if form.is_valid():
 			user = form.save()
 			login(request, user)
-			messages.success(request, 'Registro exitoso. ¡Bienvenido!')
 			return redirect('home')
 	else:
 		form = SignupForm()

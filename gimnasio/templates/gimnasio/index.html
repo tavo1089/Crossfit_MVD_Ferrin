@@ -10,9 +10,11 @@
     <a href="{% url 'clases' %}" class="btn btn-warning btn-lg shadow rounded-pill">
       <i class="bi bi-calendar-week me-2"></i> Ver Clases
     </a>
+    {% if not user.is_authenticated %}
     <a href="{% url 'signup' %}" class="btn btn-primary btn-lg shadow rounded-pill">
       <i class="bi bi-person-plus me-2"></i> Registrarme
     </a>
+    {% endif %}
     <a href="{% url 'sucursales' %}" class="btn btn-dark btn-lg shadow rounded-pill">
       <i class="bi bi-geo-alt me-2"></i> Sucursales
     </a>
@@ -40,9 +42,4 @@
     </div>
   </div>
 </section>
-
-
-</section>
-
-
 {% endblock %}
